@@ -28,7 +28,9 @@ export default defineType({
       type: 'reference',
       to: [
         {type: 'heroSection'},
-        {type: 'testimonialSection'}
+        {type: 'testimonialSection'},
+        {type: 'heroWorkSection'},
+        {type: 'instagramSection'}
       ],
       validation: Rule => Rule.required(),
       options: {

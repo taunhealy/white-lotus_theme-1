@@ -33,7 +33,7 @@ export default {
     prepare({ imageUrl, title }: { imageUrl: string; title: string }) {
       return {
         title: title || 'Hero Image',
-        media: imageUrl ? <img src={imageUrl} alt="" /> : undefined,
+        media: imageUrl || undefined,
       };
     },
   },

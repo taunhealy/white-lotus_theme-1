@@ -14,7 +14,7 @@ export default {
         title: 'Instagram Handle',
         type: 'string',
         description: '@username for your Instagram account',
-        validation: (Rule) => Rule.required().regex(/^@[A-Za-z0-9._]+$/, {
+        validation: (Rule: any) => Rule.required().regex(/^@[A-Za-z0-9._]+$/, {
           name: 'Valid Instagram handle',
           invert: false
         })
@@ -24,7 +24,7 @@ export default {
         title: 'Instagram Profile URL',
         type: 'url',
         description: 'Link to your Instagram profile',
-        validation: (Rule) => Rule.uri({
+        validation: (Rule: any) => Rule.uri({
           scheme: ['http', 'https']
         }).required().regex(/^https?:\/\/(www\.)?instagram\.com\/[\w.-]+\/?$/, {
           name: 'Valid Instagram URL'
