@@ -16,9 +16,9 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Hero', value: 'hero'},
-          {title: 'Hero Work', value: 'heroWork'},
+          {title: 'Work', value: 'work'},
           {title: 'Testimonials', value: 'testimonials'},
+          {title: 'Instagram Carousel', value: 'instagram'},
         ],
       },
     }),
@@ -27,9 +27,8 @@ export default defineType({
       title: 'Section Content',
       type: 'reference',
       to: [
-        {type: 'heroSection'},
+        {type: 'workSection'},
         {type: 'testimonialSection'},
-        {type: 'heroWorkSection'},
         {type: 'instagramSection'}
       ],
       validation: Rule => Rule.required(),
