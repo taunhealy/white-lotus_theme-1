@@ -1,0 +1,32 @@
+---
+import Section from '../../components/Section.astro';
+import { pageQuery, allPagesQuery } from '../../lib/queries';
+import { client } from '../../lib/sanity';
+import Layout from '../../layouts/Layout.astro';
+
+interface PageSection {
+  order: number;
+  [key: string]: any; // For other section properties
+}
+
+export async function getStaticPaths() {
+    const pages = await client.fetch(allPagesQuery);
+    
+    return pages.map((page: { slug: string, isHomePage: boolean }) => ({
+        params: { slug: page.isHomePage ? undefined : page.slug },
+    }));
+}
+
+const { slug } = Astro.params;
+const page = await client.fetch(pageQuery, { slug });
+
+if (!page) {
+    return Astro.redirect('/404');
+}
+---
+
+<Layout title={page.title}>
+    {page.sections?.sort((a: PageSection, b: PageSection) => a.order - b.order).map((section: PageSection) => (
+        <Section section={section} />
+    ))}
+</Layout>

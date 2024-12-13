@@ -1,0 +1,36 @@
+---
+import { PortableText } from 'astro-portabletext';
+const { content, image } = Astro.props;
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="content">
+      {content && <PortableText value={content} />}
+    </div>
+    {image && (
+      <div class="image">
+        <img src={image.asset.url} alt={image.alt || ''} />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 4rem 0;
+    background: var(--color-bg);
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .image img {
+    width: 100%;
+    height: auto;
+  }
+</style>
