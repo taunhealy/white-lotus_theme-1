@@ -1,8 +1,10 @@
 ---
-import Hero from './Hero.astro';
+
+import HeroWork from './HeroWork.astro';
 import Testimonials from './Testimonials.astro';
+
 const sectionTypes = {
-  hero: Hero,
+  heroWork: HeroWork,
   testimonials: Testimonials,
 };
 
@@ -10,4 +12,4 @@ const { section } = Astro.props;
 const Component = sectionTypes[section.sectionType as keyof typeof sectionTypes];
 ---
 
-{Component && <Component {...section} />}
+{Component && <Component {...section.sectionData} />}

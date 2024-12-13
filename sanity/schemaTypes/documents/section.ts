@@ -17,31 +17,26 @@ export default defineType({
       options: {
         list: [
           {title: 'Hero', value: 'hero'},
-          {title: 'Features', value: 'features'},
-          {title: 'Content', value: 'content'},
+          {title: 'Hero Work', value: 'heroWork'},
           {title: 'Testimonials', value: 'testimonials'},
         ],
       },
     }),
     defineField({
-      name: 'content',
-      title: 'Content',
-      type: 'blockContent',
-    }),
-    defineField({
-      name: 'testimonials',
-      title: 'Testimonials',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'testimonial'}}],
-      hidden: ({document}) => document?.sectionType !== 'testimonials',
-    }),
-    defineField({
-      name: 'image',
-      title: 'Image',
-      type: 'image',
+      name: 'sectionContent',
+      title: 'Section Content',
+      type: 'reference',
+      to: [
+        {type: 'heroSection'},
+        {type: 'testimonialSection'}
+      ],
+      validation: Rule => Rule.required(),
       options: {
-        hotspot: true,
-      },
+        filter: ({document}) => ({
+          filter: '_type == $type',
+          params: {type: `${document?.sectionType}Section`}
+        })
+      }
     }),
     defineField({
       name: 'order',
