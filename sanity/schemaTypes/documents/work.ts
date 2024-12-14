@@ -5,7 +5,6 @@ export default defineType({
   title: 'Work',
   type: 'document',
   fields: [
- 
     defineField({
       name: 'client',
       title: 'Client',
@@ -20,6 +19,7 @@ export default defineType({
       options: {
         hotspot: true,
       },
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'videoUrl',
@@ -33,5 +33,19 @@ export default defineType({
       type: 'reference',
       to: [{type: 'venue'}],
     }),
-  ]
+  ],
+  preview: {
+    select: {
+      clientName: 'client.coupleNames',
+      media: 'image',
+      venueName: 'venue.name'
+    },
+    prepare({clientName, media, venueName}) {
+      return {
+        title: clientName || 'Untitled Work',
+        subtitle: venueName ? `at ${venueName}` : '',
+        media: media
+      }
+    }
+  }
 })
