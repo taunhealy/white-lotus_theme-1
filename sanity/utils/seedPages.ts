@@ -25,8 +25,7 @@ const DEFAULT_PAGES = [
           _type: 'testimonialSection',
           // Default testimonial section content
         }
-      },
-      // ... other sections
+      }
     ]
   },
   {
@@ -56,4 +55,4 @@ export async function seedDefaultPages() {
   } catch (error) {
     console.error('Error seeding pages:', error)
   }
-} 
+}

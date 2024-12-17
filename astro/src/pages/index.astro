@@ -1,19 +1,25 @@
 ---
 import { pageQuery } from '../lib/queries';
-import { client } from '../lib/sanity';
+import { client } from '../../sanity';
 import Layout from '../layouts/Layout.astro';
-import Section from '../components/Section.astro';
+import Section from '../sections/Section.astro';
 
 interface PageSection {
   order: number;
   [key: string]: any;
 }
 
-const page = await client.fetch(pageQuery, { slug: 'home' });
-console.log('Page data:', page);
+let page;
+try {
+  page = await client.fetch(pageQuery, { slug: 'home' });
+  console.log('Page data:', page);
+} catch (error) {
+  console.error('Sanity query error:', error);
+  return Astro.redirect('/404');
+}
 
 if (!page) {
-    return Astro.redirect('/404');
+  return Astro.redirect('/404');
 }
 ---
 

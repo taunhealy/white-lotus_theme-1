@@ -11,10 +11,5 @@ export default defineType({
       type: 'string',
       validation: (Rule: any) => Rule.required()
     }),
-    defineField({
-      name: 'address',
-      title: 'Address',
-      type: 'string'
-    })
   ]
 })
