@@ -21,39 +21,24 @@ console.log('Sanity Configuration:', {
   apiVersion: '2024-06-19'
 })
 
-const VENUES = [
-  {
-    _type: 'venue',
-    name: 'The Grand Plaza',
-    location: 'New York, NY'
-  },
-  {
-    _type: 'venue',
-    name: 'Sunset Beach Resort',
-    location: 'Miami, FL'
-  },
-  {
-    _type: 'venue',
-    name: 'Mountain View Lodge',
-    location: 'Denver, CO'
-  }
-]
-
 const CLIENTS = [
   {
     _type: 'client',
-    coupleNames: 'Sarah & James',
-    weddingDate: '2024-06-15'
+    name: 'Sarah & James',
+    projectType: 'wedding',
+    date: '2024-06-15'
   },
   {
     _type: 'client',
-    coupleNames: 'Michael & Emma',
-    weddingDate: '2024-07-22'
+    name: 'Michael & Emma',
+    projectType: 'wedding',
+    date: '2024-07-22'
   },
   {
     _type: 'client',
-    coupleNames: 'David & Lisa',
-    weddingDate: '2024-08-30'
+    name: 'Acme Corporation',
+    projectType: 'commercial',
+    date: '2024-08-30'
   }
 ]
 
@@ -78,6 +63,76 @@ const TESTIMONIALS = [
   }
 ]
 
+const PROCESSES = [
+  {
+    _type: 'process',
+    title: 'Initial Consultation',
+    description: 'We start with a friendly chat to understand your vision and requirements',
+    stepNumber: 1,
+    color: '#FF6B6B'
+  },
+  {
+    _type: 'process',
+    title: 'Creative Planning',
+    description: 'Together we plan the perfect shoot, from location to styling',
+    stepNumber: 2,
+    color: '#4ECDC4'
+  },
+  {
+    _type: 'process',
+    title: 'The Shoot',
+    description: 'Professional photography session with attention to every detail',
+    stepNumber: 3,
+    color: '#45B7D1'
+  },
+  {
+    _type: 'process',
+    title: 'Delivery',
+    description: 'Receive your carefully edited collection of memories',
+    stepNumber: 4,
+    color: '#96CEB4'
+  }
+]
+
+const DESTINATIONS = [
+  {
+    _type: 'destination',
+    name: 'Santorini',
+    city: 'Oia',
+    country: 'Greece',
+    description: 'Iconic white-washed buildings and stunning Mediterranean views',
+    coordinates: {
+      lat: 36.4618,
+      lng: 25.3760
+    },
+    tags: ['islands', 'mediterranean', 'sunset', 'architecture']
+  },
+  {
+    _type: 'destination',
+    name: 'Kyoto',
+    city: 'Kyoto',
+    country: 'Japan',
+    description: 'Ancient temples and traditional Japanese gardens',
+    coordinates: {
+      lat: 35.0116,
+      lng: 135.7681
+    },
+    tags: ['temples', 'culture', 'gardens', 'traditional']
+  },
+  {
+    _type: 'destination',
+    name: 'Machu Picchu',
+    city: 'Cusco',
+    country: 'Peru',
+    description: 'Ancient Incan citadel set high in the Andes Mountains',
+    coordinates: {
+      lat: -13.1631,
+      lng: -72.5450
+    },
+    tags: ['ruins', 'mountains', 'history', 'archaeology']
+  }
+]
+
 const PAGES = [
   {
     _type: 'page',
@@ -87,17 +142,17 @@ const PAGES = [
       {
         _type: 'heroSection',
         heroTitle: 'Capturing Your Perfect Moments',
-        heroSubtitle: 'Professional Wedding Photography & Videography',
+        heroSubtitle: 'Professional Photography & Videography',
         order: 1
+      },
+      {
+        _type: 'processSection',
+        processes: [], // Will be populated with references during seeding
+        order: 2
       },
       {
         _type: 'workSection',
         title: 'Featured Work',
-        order: 2
-      },
-      {
-        _type: 'testimonialSection',
-        title: 'What Our Clients Say',
         order: 3
       }
     ]
@@ -129,41 +184,167 @@ const PAGES = [
   }
 ]
 
-export { VENUES, CLIENTS, TESTIMONIALS, PAGES }
+const WORKS = [
+  {
+    _type: 'work',
+    title: 'Destination Wedding in Santorini',
+    description: 'A beautiful destination wedding capturing love against the backdrop of Santorini\'s stunning views.',
+    details: {
+      date: '2024-06-15',
+      equipment: ['Sony A7IV', 'Canon R5'],
+      tags: ['destination wedding', 'sunset', 'beach']
+    },
+    photoSeries: [
+      {
+        name: 'Ceremony',
+        description: 'Beautiful moments from the wedding ceremony',
+        photos: [] // You'll need to add actual images here
+      }
+    ]
+  },
+  {
+    _type: 'work',
+    title: 'Cultural Photography in Kyoto',
+    category: 'travel',
+    description: 'Exploring the rich cultural heritage and traditional gardens of Kyoto.',
+    details: {
+      date: '2024-07-01',
+      equipment: ['Fujifilm X-T4', 'Leica Q2'],
+      tags: ['travel', 'culture', 'architecture']
+    }
+  },
+  {
+    _type: 'work',
+    title: 'Adventure Photography at Machu Picchu',
+    category: 'travel',
+    description: 'Capturing the mystical beauty of this ancient Incan citadel.',
+    details: {
+      date: '2024-08-15',
+      equipment: ['Sony A7R V', 'DJI Mavic 3'],
+      tags: ['travel', 'adventure', 'landscape']
+    }
+  }
+]
 
-// Add deletion function
+const WORK_CATEGORIES = [
+  {
+    _type: 'workCategory',
+    title: 'Wedding',
+    slug: { _type: 'slug', current: 'wedding' },
+    description: 'Beautiful wedding photography capturing special moments'
+  },
+  {
+    _type: 'workCategory',
+    title: 'Travel',
+    slug: { _type: 'slug', current: 'travel' },
+    description: 'Stunning travel and landscape photography from around the world'
+  },
+  {
+    _type: 'workCategory',
+    title: 'Commercial',
+    slug: { _type: 'slug', current: 'commercial' },
+    description: 'Professional commercial and brand photography'
+  },
+  {
+    _type: 'workCategory',
+    title: 'Portrait',
+    slug: { _type: 'slug', current: 'portrait' },
+    description: 'Capturing personalities through portrait photography'
+  }
+]
+
+const BLOG_CATEGORIES = [
+  {
+    _type: 'blogCategory',
+    title: 'Photography Tips',
+    slug: { _type: 'slug', current: 'photography-tips' },
+    description: 'Expert photography tips and techniques'
+  },
+  {
+    _type: 'blogCategory',
+    title: 'Travel Stories',
+    slug: { _type: 'slug', current: 'travel-stories' },
+    description: 'Adventures and stories from around the world'
+  },
+  {
+    _type: 'blogCategory',
+    title: 'Wedding Planning',
+    slug: { _type: 'slug', current: 'wedding-planning' },
+    description: 'Tips and inspiration for wedding photography'
+  }
+]
+
+const GEAR = [
+  {
+    _type: 'gear',
+    name: 'A7 IV',
+    brand: 'Sony',
+    category: 'camera',
+    description: 'Full-frame mirrorless camera with advanced AF capabilities'
+  },
+  {
+    _type: 'gear',
+    name: 'RF 24-70mm f/2.8L IS USM',
+    brand: 'Canon',
+    category: 'lens',
+    description: 'Professional standard zoom lens'
+  },
+  {
+    _type: 'gear',
+    name: 'Mavic 3',
+    brand: 'DJI',
+    category: 'drone',
+    description: 'Professional drone with Hasselblad camera'
+  }
+]
+
+export { CLIENTS, TESTIMONIALS, PAGES, PROCESSES, DESTINATIONS, WORKS, WORK_CATEGORIES, BLOG_CATEGORIES, GEAR }
+
+// Update the deletion function to handle references
 async function deleteAllDocuments() {
   console.log('🗑️  Deleting ALL existing documents...')
   
   try {
-    // More specific query to only target our known document types
-    const query = `*[_type in ["venue", "client", "testimonial", "page"]]`
-    const documents = await client.fetch(query)
-    
-    if (documents.length === 0) {
-      console.log('No matching documents to delete.')
-      return
-    }
+    // Delete in specific order to handle references
+    const deleteTypes = [
+      // First delete pages (they reference everything)
+      'page',
+      // Then delete content that pages reference
+      'work',
+      'testimonial',
+      'process',
+      // Then delete supporting content
+      'client',
+      'destination',
+      'gear',
+      // Finally delete categories
+      'workCategory',
+      'blogCategory',
+      'blog'
+    ]
 
-    console.log(`Found ${documents.length} documents to delete...`)
-    
-    // Try deleting one by one instead of in a transaction
-    for (const doc of documents) {
-      try {
-        await client.delete(doc._id)
-        console.log(`Deleted document: ${doc._type} (${doc._id})`)
-      } catch (deleteError) {
-        console.error(`Failed to delete ${doc._type} (${doc._id}):`, deleteError.message)
+    for (const type of deleteTypes) {
+      console.log(`Deleting ${type} documents...`)
+      const query = `*[_type == "${type}"]`
+      const documents = await client.fetch(query)
+      
+      if (documents.length > 0) {
+        console.log(`Found ${documents.length} ${type} documents to delete`)
+        
+        for (const doc of documents) {
+          try {
+            await client.delete(doc._id)
+            console.log(`Deleted ${type}: ${doc._id}`)
+          } catch (deleteError) {
+            console.error(`Failed to delete ${type} (${doc._id}):`, deleteError.message)
+          }
+        }
       }
     }
 
     console.log('✨ Deletion process completed!')
   } catch (error) {
-    console.error('Deletion failed:', {
-      message: error.message,
-      statusCode: error.statusCode,
-      details: error.details?.items?.[0]?.error
-    })
+    console.error('Deletion failed:', error)
     throw error
   }
 }
@@ -200,18 +381,123 @@ async function seedData() {
     // Delete existing documents first
     await deleteAllDocuments()
 
-    // Create new documents
-    console.log('Creating venues...')
-    await Promise.all(VENUES.map(venue => client.create(venue)))
+    // Create processes first
+    console.log('Creating processes...')
+    const processRefs = await Promise.all(
+      PROCESSES.map(process => client.create(process))
+    )
 
+    // Create destinations
+    console.log('Creating destinations...')
+    const destinationRefs = await Promise.all(
+      DESTINATIONS.map(destination => client.create(destination))
+    )
+
+    // Create clients
     console.log('Creating clients...')
-    await Promise.all(CLIENTS.map(clientData => client.create(clientData)))
+    const clientRefs = await Promise.all(
+      CLIENTS.map(clientData => client.create(clientData))
+    )
 
+    // Create work categories
+    console.log('Creating work categories...')
+    const workCategoryRefs = await Promise.all(
+      WORK_CATEGORIES.map(category => client.create(category))
+    )
+
+    // Create blog categories
+    console.log('Creating blog categories...')
+    const blogCategoryRefs = await Promise.all(
+      BLOG_CATEGORIES.map(category => client.create(category))
+    )
+
+    // Create gear
+    console.log('Creating gear...')
+    const gearRefs = await Promise.all(
+      GEAR.map(gear => client.create(gear))
+    )
+
+    // Update work creation to handle missing categories
+    console.log('Creating works...')
+    const workRefs = await Promise.all(
+      WORKS.map((work, index) => {
+        // Create a new work object without category reference first
+        const workWithRefs = {
+          ...work,
+          destination: { 
+            _type: 'reference', 
+            _ref: destinationRefs[index % destinationRefs.length]._id 
+          },
+          details: {
+            ...work.details,
+            equipment: gearRefs.map(ref => ({
+              _type: 'reference',
+              _ref: ref._id
+            }))
+          }
+        }
+
+        // Only add category reference if work has a category
+        if (work.category) {
+          const categoryRef = workCategoryRefs.find(cat => 
+            cat.slug.current === work.category
+          )
+          if (categoryRef) {
+            workWithRefs.category = {
+              _type: 'reference',
+              _ref: categoryRef._id
+            }
+          }
+        }
+
+        // Add client reference for wedding works
+        if (work.category === 'wedding') {
+          workWithRefs.client = { 
+            _type: 'reference', 
+            _ref: clientRefs[0]._id 
+          }
+        }
+
+        return client.create(workWithRefs)
+      })
+    )
+
+    // Create testimonials
     console.log('Creating testimonials...')
     await Promise.all(TESTIMONIALS.map(testimonial => client.create(testimonial)))
 
+    // Create pages with process and work references
     console.log('Creating pages...')
-    await Promise.all(PAGES.map(page => client.create(page)))
+    await Promise.all(
+      PAGES.map(page => {
+        const sectionsWithRefs = page.sections.map(section => {
+          if (section._type === 'processSection') {
+            return {
+              ...section,
+              processes: processRefs.map(ref => ({
+                _type: 'reference',
+                _ref: ref._id
+              }))
+            }
+          }
+          if (section._type === 'workSection') {
+            return {
+              ...section,
+              works: workRefs.map(ref => ({
+                _type: 'reference',
+                _ref: ref._id
+              }))
+            }
+          }
+          return section
+        })
+
+        return client.create({
+          ...page,
+          sections: sectionsWithRefs
+        })
+      })
+    )
 
     console.log('✅ Seeding completed successfully!')
   } catch (error) {

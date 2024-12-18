@@ -14,14 +14,18 @@ import contactSection from './objects/contactSection'
 import imageFullScreenSection from './objects/ImageFullScreenSection'
 import post from './documents/post'
 import category from './documents/category'
-import venue from './documents/venue'
-
+import destination from './documents/destination'
+import workCategory from './documents/workCategory'
+import blog from './documents/blog'
+import blogCategory from './documents/blogCategory'
+import gear from './documents/gear'
 // Library of schemas -central control of all the schemas - document & objects
 export const schemaTypes = [
   blockContent,
   testimonial,
   page,
   work,
+  workCategory,
   testimonialSection,
   workSection,
   client,
@@ -34,5 +38,8 @@ export const schemaTypes = [
   imageFullScreenSection,
   post,
   category,
-  venue,
+  destination,
+  blog,
+  blogCategory,
+  gear,
 ]
